@@ -1,0 +1,15 @@
+{
+  "name": "passwordgenerator",
+  "version": "1.0.0",
+  "source": "src/index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel src/*",
+    "build": "parcel build"
+  },
+  "author": "Andrea Evolo",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.5.0"
+  }
+}

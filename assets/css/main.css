@@ -1,0 +1,40 @@
+@import './theme.css';
+@import './alert.css';
+
+body,
+html {
+    padding: 0 5rem;
+    background-color: var(--primary-color);
+}
+
+#page__content {
+    margin: 5rem auto;
+}
+
+#password__length {
+    margin: 1rem 0 2rem 0;
+}
+
+#password__field {
+    display: flex;
+}
+
+#copy {
+    height: 3rem;
+    width: 3rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    margin-left: 1rem;
+    cursor: pointer;
+    display: inline-block;
+}
+
+button {
+    background-color: var(--accent-color);
+    border-color: transparent;
+}
+
+button:hover {
+    background-color: #3729f0;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <title>Password Generator</title>
+</head>
+
+<body>
+    <div class="container" id="page__content">
+        <header>
+            <h1>Password Generator</h1>
+        </header>
+        <main>
+            <form>
+                <div id="password__field">
+                    <input type="password" placeholder="Press the button to generate your password" id="password" />
+                    <p id="copy" data-tooltip="Copy Password"><img src="../assets/copy.svg" alt="Copy Password icon" />
+                    </p>
+                </div>
+                <fieldset id="password__length">
+                    <legend>Length</legend>
+                    <label for="short">
+                        <input type="radio" id="short" name="length" value="6" checked>
+                        Short - 6 Characters long
+                    </label>
+                    <label for="medium">
+                        <input type="radio" id="medium" name="length" value="12">
+                        Medium - 12 Characters long
+                    </label>
+                    <label for="long">
+                        <input type="radio" id="long" name="length" value="16">
+                        Long - 16 Characters long
+                    </label>
+                    <label for="extralong">
+                        <input type="radio" id="extralong" name="length" value="32">
+                        Super Long - 32 Characters long
+                    </label>
+                </fieldset>
+                <button id="generate__password" aria-busy="false">Generate Password</button>
+
+            </form>
+        </main>
+        <script type="module" src="../assets/js/index.js"></script>
+    </div>
+</body>
+
+</html>
