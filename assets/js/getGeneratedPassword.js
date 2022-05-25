@@ -10,7 +10,7 @@ const radioButtons = document.querySelectorAll('input[type="radio"]');
 const getRadioButtonValue = (checkboxes) => {
     let value = null;
     checkboxes.forEach(checkbox => {
-        console.log(checkbox.checked)
+        
         if (checkbox.checked) {
             value = checkbox.value;
         }
