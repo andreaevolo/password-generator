@@ -530,6 +530,13 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _copyPassword = require("./copyPassword");
 var _getGeneratedPassword = require("./getGeneratedPassword");
 var _getGeneratedPasswordDefault = parcelHelpers.interopDefault(_getGeneratedPassword);
+const passwordInput = document.getElementById('password');
+const checkboxes = document.querySelectorAll('input[type="radio"]');
+checkboxes.forEach((checkbox)=>{
+    checkbox.addEventListener('change', ()=>{
+        passwordInput.value = '';
+    });
+});
 window.addEventListener('DOMContentLoaded', (e)=>{
     _getGeneratedPasswordDefault.default();
 });
@@ -620,8 +627,12 @@ exports.export = function(dest, destName, get) {
 },{}],"bo8JY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _cookies = require("./utils/cookies");
+var _cookiesDefault = parcelHelpers.interopDefault(_cookies);
 var _alert = require("./alert");
 var _alertDefault = parcelHelpers.interopDefault(_alert);
+var _buttonLoader = require("./utils/buttonLoader");
+var _buttonLoaderDefault = parcelHelpers.interopDefault(_buttonLoader);
 const generatePasswordBtn = document.getElementById("generate__password");
 const passwordInput = document.getElementById("password");
 const radioButtons = document.querySelectorAll('input[type="radio"]');
@@ -636,23 +647,54 @@ const getRadioButtonValue = (checkboxes)=>{
 const getPassword = ()=>{
     generatePasswordBtn.addEventListener("click", async (e)=>{
         e.preventDefault();
-        generatePasswordBtn.setAttribute("aria-busy", "true");
-        console.log(generatePasswordBtn.ariaBusy);
+        const btnLoader = new _buttonLoaderDefault.default(generatePasswordBtn);
+        btnLoader.startLoader();
         try {
-            const res = await fetch(`http://localhost:8000/password?length=${getRadioButtonValue(radioButtons)}`);
+            const res = await fetch(`http://localhost:3000/password?length=${getRadioButtonValue(radioButtons)}`, {
+                headers: {
+                    'Authorization': `Bearer ${_cookiesDefault.default('token')}`
+                }
+            });
             if (!res.ok) throw res.status;
             let jsonRes = await res.json();
             _alertDefault.default('Password generation completed.');
             passwordInput.value = jsonRes.password;
-            generatePasswordBtn.setAttribute("aria-busy", "false");
+            btnLoader.stopLoader();
         } catch (error) {
+            window.location = '/login.html';
             console.error(error);
-            generatePasswordBtn.setAttribute("aria-busy", "false");
+            btnLoader.startLoader();
         }
     });
 };
 exports.default = getPassword;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./alert":"9ePSj"}]},["eK7Px","1E7ZB"], "1E7ZB", "parcelRequire2b37")
+},{"./utils/cookies":"fh8IX","./alert":"9ePSj","./utils/buttonLoader":"cW6gW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fh8IX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+exports.default = getCookie;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cW6gW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class buttonLoader {
+    constructor(btnElement){
+        this.btn = btnElement;
+    }
+    startLoader() {
+        this.btn.setAttribute("aria-busy", "true");
+    }
+    stopLoader() {
+        this.btn.setAttribute("aria-busy", "false");
+    }
+}
+exports.default = buttonLoader;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["eK7Px","1E7ZB"], "1E7ZB", "parcelRequire2b37")
 
 //# sourceMappingURL=index.a5535e9f.js.map

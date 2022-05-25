@@ -59,6 +59,7 @@ body, html {
 }
 
 #page__content {
+  width: 50vw;
   margin: 5rem auto;
 }
 
@@ -84,10 +85,25 @@ body, html {
 button {
   background-color: var(--accent-color);
   border-color: #0000;
+  margin-top: .9rem;
 }
 
 button:hover {
   background-color: #3729f0;
+}
+
+#store__password {
+  border: 1px solid var(--secondary-color);
+  background-color: #0000;
+}
+
+#store__password:hover {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+#password__info {
+  display: none;
 }
 
 /*# sourceMappingURL=index.1f373376.css.map */

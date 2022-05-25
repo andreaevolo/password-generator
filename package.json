@@ -4,12 +4,38 @@
   "source": "src/index.html",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel src/*",
-    "build": "parcel build"
+    "start": "parcel src/*.html",
+    "build": "parcel build /*.html",
+    "test": "mocha api/test/*.js",
+    "start-server": "concurrently   \"npx eslint \" \"nodemon --quiet api/app.js\""
   },
   "author": "Andrea Evolo",
   "license": "ISC",
   "devDependencies": {
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^8.16.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.16",
     "parcel": "^2.5.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "chai": "^4.3.6",
+    "concurrently": "^7.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^3.0.0",
+    "morgan": "^1.10.0",
+    "random-js": "^2.1.0",
+    "sequelize": "^6.19.2",
+    "winston": "^3.7.2"
   }
 }

@@ -1,4 +1,6 @@
+import getCookie from './utils/cookies';
 import showAlert from './alert';
+import buttonLoader from './utils/buttonLoader';
 
 const generatePasswordBtn = document.getElementById("generate__password");
 const passwordInput = document.getElementById("password");
@@ -19,21 +21,26 @@ const getRadioButtonValue = (checkboxes) => {
 const getPassword = () => {
     generatePasswordBtn.addEventListener("click", async (e) => {
         e.preventDefault();
+        const btnLoader = new buttonLoader(generatePasswordBtn)
+        btnLoader.startLoader();
 
-        generatePasswordBtn.setAttribute("aria-busy", "true")
-        console.log(generatePasswordBtn.ariaBusy)
         try {
-            const res = await fetch(`http://localhost:8000/password?length=${getRadioButtonValue(radioButtons)}`);
+            const res = await fetch(`http://localhost:3000/password?length=${getRadioButtonValue(radioButtons)}`, {
+                headers: {
+                    'Authorization': `Bearer ${getCookie('token')}`
+                }
+            });
             if (!res.ok) {
                 throw res.status;
             }
             let jsonRes = await res.json();
             showAlert('Password generation completed.')
             passwordInput.value = jsonRes.password;
-            generatePasswordBtn.setAttribute("aria-busy", "false")
+            btnLoader.stopLoader()
         } catch (error) {
+            window.location = '/login.html'
             console.error(error);
-            generatePasswordBtn.setAttribute("aria-busy", "false")
+            btnLoader.startLoader()
         }
     })
 }
