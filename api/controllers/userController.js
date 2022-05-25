@@ -1,12 +1,13 @@
 const sequelize = require('sequelize')
 const User = require('../models/user')
 const validateLoginSchema = require('./validation/validateLoginSchema')
+const validateSignUpSchema = require('./validation/validateSignUpSchema')
 const { createAccessToken } = require('../auth')
 const { hashPassword, comparePassword } = require('../util/password')
 
 const login = async (req, res) => {
   try {
-    await validateLoginSchema.validateAsync(req.body)
+    await validateLoginSchema.validateAsync(req.body, { abortEarly: false })
 
     const { email, password } = req.body
     const user = await User.findOne({ where: { email } })
@@ -21,19 +22,20 @@ const login = async (req, res) => {
       return res.status(401).json({ msg: 'Wrong email or password' })
     }
   } catch (err) {
-    return res.status(400).json({ error: err.message })
+    return res.status(400).json({ errors: err.details })
   }
 }
 
 const signup = async (req, res) => {
   const { email, password } = req.body
   try {
+    await validateSignUpSchema(req.body, { abortEarly: false })
     await User.create({ email, passwordHash: await hashPassword(password) })
     const token = await createAccessToken({ email })
     return res.status(200).json({ token })
-  } catch (error) {
-    console.log(error)
-    return res.status(404)
+  } catch (err) {
+    console.log(err)
+    return res.status(400).json({ errors: err.details })
   }
 }
 

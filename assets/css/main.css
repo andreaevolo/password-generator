@@ -20,6 +20,10 @@ html {
     display: flex;
 }
 
+.formError {
+    color: red;
+}
+
 #copy {
     height: 3rem;
     width: 3rem;

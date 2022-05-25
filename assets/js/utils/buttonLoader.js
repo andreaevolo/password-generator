@@ -1,5 +1,5 @@
 
-export default class buttonLoader {
+export default class ButtonLoader {
     constructor(btnElement) {
         this.btn = btnElement;
     }

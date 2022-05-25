@@ -53,5 +53,5 @@ typings/
 
 # Parcel related files
 dist/
-.cache/
+.parcel-cache
 .vscode
